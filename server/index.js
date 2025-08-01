@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const morgan = require('morgan');
 const { MongoClient, ObjectId } = require('mongodb');
 const { v4: uuidv4 } = require('uuid');
