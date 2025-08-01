@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Star, MapPin, Clock, IndianRupee } from 'lucide-react';
 import { Doctor } from '../types';
 import { formatINR } from '../utils/currency';
@@ -9,6 +9,8 @@ interface DoctorCardProps {
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
+  const navigate = useNavigate();
+
   const getAvailabilityStatus = () => {
     switch (doctor.availabilityStatus) {
       case 'available':
@@ -40,9 +42,28 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
 
   const availability = getAvailabilityStatus();
 
+  // Validate doctor._id
+  if (!doctor._id || typeof doctor._id !== 'string') {
+    console.error(`Invalid doctor ID for ${doctor.name}:`, doctor._id);
+    return (
+      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+        <p className="text-red-600">Error: Invalid doctor profile</p>
+        <p className="text-gray-600">{doctor.name} - {doctor.specialization}</p>
+      </div>
+    );
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Log navigation attempt for debugging
+    console.log(`Navigating to /doctor/${doctor._id}`);
+    // Ensure no parent elements interfere
+    e.stopPropagation();
+  };
+
   return (
     <Link
-      to={`/doctor/${doctor.id}`}
+      to={`/doctor/${doctor._id}`}
+      onClick={handleClick}
       className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200"
     >
       <div className="p-6">
@@ -53,7 +74,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
               alt={doctor.name}
               className="w-20 h-20 rounded-full object-cover ring-4 ring-blue-50 group-hover:ring-blue-100 transition-all duration-300"
             />
-            <div className={`absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center`}>
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center">
               <div className={`w-3 h-3 rounded-full ${availability.dot}`}></div>
             </div>
           </div>

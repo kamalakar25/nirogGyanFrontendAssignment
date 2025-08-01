@@ -27,7 +27,7 @@ interface AppContextType {
   state: AppState;
   dispatch: React.Dispatch<AppAction>;
   bookAppointment: (appointmentData: BookingFormData) => Promise<void>;
-  cancelAppointment: (id: string) => Promise<void>;
+  cancelAppointment: (_id: string) => Promise<void>;
   getAnalytics: () => Promise<AnalyticsData>;
   getFilteredDoctors: () => Doctor[];
 }
@@ -59,7 +59,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         doctors: state.doctors.map(doctor => {
-          if (doctor.id === action.payload.doctorId) {
+          if (doctor._id === action.payload.doctorId) {
             return {
               ...doctor,
               availableSlots: doctor.availableSlots
@@ -172,18 +172,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   // Function to cancel an appointment
-  const cancelAppointment = async (id: string) => {
+  const cancelAppointment = async (_id: string) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
-      const response = await apiService.cancelAppointment(id);
-      
+      const response = await apiService.cancelAppointment(_id);
+
       if (!response.success) {
         throw new Error(response.message || 'Failed to cancel appointment');
       }
 
       dispatch({
         type: 'SET_APPOINTMENTS',
-        payload: state.appointments.filter(appt => appt.id !== id),
+        payload: state.appointments.filter(appt => appt._id !== _id),
       });
 
       await refetchAppointments();

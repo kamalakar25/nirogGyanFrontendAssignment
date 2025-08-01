@@ -34,8 +34,8 @@ export const apiService = {
     return handleResponse(response);
   },
 
-  async getDoctor(id: string) {
-    const response = await fetch(`${API_URL}/doctors/${id}`);
+  async getDoctor(_id: string) {
+    const response = await fetch(`${API_URL}/doctors/${_id}`);
     return handleResponse(response);
   },
 
@@ -61,8 +61,8 @@ export const apiService = {
     return handleResponse(response);
   },
 
-  async cancelAppointment(id: string) {
-    const response = await fetch(`${API_URL}/appointments/${id}/cancel`, {
+  async cancelAppointment(_id: string) {
+    const response = await fetch(`${API_URL}/appointments/${_id}/cancel`, {
       method: 'PATCH',
     });
     return handleResponse(response);

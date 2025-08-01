@@ -1,5 +1,5 @@
 export interface Doctor {
-  id: string;
+  _id: string;
   name: string;
   specialization: string;
   image: string;
@@ -20,7 +20,7 @@ export interface TimeSlot {
 }
 
 export interface Appointment {
-  id: string;
+  _id: string;
   doctorId: string;
   doctorName: string;
   patientName: string;

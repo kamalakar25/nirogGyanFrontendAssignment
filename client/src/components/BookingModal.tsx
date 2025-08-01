@@ -24,7 +24,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ doctor, onClose }) => {
     "form"
   );
   const [formData, setFormData] = useState<BookingFormData>({
-    doctorId: doctor.id,
+    doctorId: doctor._id,
     patientName: "",
     patientEmail: "",
     date: "",
@@ -83,7 +83,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ doctor, onClose }) => {
         dispatch({
           type: "UPDATE_DOCTOR_AVAILABILITY",
           payload: {
-            doctorId: doctor.id,
+            doctorId: doctor._id,
             date: formData.date,
             time: formData.time,
           },

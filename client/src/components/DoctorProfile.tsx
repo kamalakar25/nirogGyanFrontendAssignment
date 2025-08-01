@@ -6,11 +6,11 @@ import BookingModal from './BookingModal';
 import { formatINR } from '../utils/currency';
 
 const DoctorProfile: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { _id } = useParams<{ _id: string }>();
   const { state } = useApp();
   const [showBookingModal, setShowBookingModal] = useState(false);
 
-  const doctor = state.doctors.find((d) => d.id === id);
+  const doctor = state.doctors.find((d) => d._id === _id);
 
   if (!doctor) {
     return <Navigate to="/" replace />;

@@ -111,7 +111,7 @@ const MyAppointments: React.FC = () => {
               </div>
 
               {appointments.map((appointment: any) => (
-                <div key={appointment.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div key={appointment._id} className="bg-white rounded-xl shadow-lg overflow-hidden">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-4">
@@ -120,7 +120,7 @@ const MyAppointments: React.FC = () => {
                         </div>
                         <div>
                           <h3 className="text-lg font-semibold text-gray-900">{appointment.doctorName}</h3>
-                          <p className="text-blue-600 font-medium">Appointment #{appointment.id.slice(-8)}</p>
+                          <p className="text-blue-600 font-medium">Appointment #{appointment._id.slice(-8)}</p>
                         </div>
                       </div>
 
@@ -139,7 +139,7 @@ const MyAppointments: React.FC = () => {
 
                         {appointment.status === 'confirmed' && (
                           <button
-                            onClick={() => handleCancelAppointment(appointment.id)}
+                            onClick={() => handleCancelAppointment(appointment._id)}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
                             title="Cancel appointment"
                           >

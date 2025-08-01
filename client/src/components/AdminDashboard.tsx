@@ -386,7 +386,7 @@ const AdminDashboard: React.FC = () => {
                 .slice(0, 8)
                 .map((appointment, index) => (
                   <div
-                    key={appointment.id || index}
+                    key={appointment._id || index}
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
                   >
                     <div className="flex-1">
@@ -478,57 +478,6 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Monthly Performance */}
-      {analytics.monthlyStats?.length > 0 && (
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-            <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
-            Monthly Performance
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-3">
-                Recent Appointments
-              </h3>
-              <div className="space-y-2">
-                {analytics.monthlyStats.slice(0, 5).map((stat, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-sm text-gray-700">
-                      {new Date(stat.date).toLocaleDateString()}
-                    </span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {stat.appointments} appointments
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-3">
-                Daily Revenue
-              </h3>
-              <div className="space-y-2">
-                {analytics.monthlyStats.slice(0, 5).map((stat, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-sm text-gray-700">
-                      {new Date(stat.date).toLocaleDateString()}
-                    </span>
-                    <span className="text-sm font-medium text-gray-900">
-                      {formatINR(stat.revenue)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
