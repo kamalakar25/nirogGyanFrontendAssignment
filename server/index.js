@@ -7,6 +7,34 @@ const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const app = express();
+// Middleware
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173').split(',');
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      console.log('CORS Request Origin:', origin); // Debug log
+      console.log('Allowed Origins:', allowedOrigins); // Debug log
+      // Allow requests with no origin (e.g., mobile apps, Postman)
+      if (!origin) {
+        console.log('No origin provided, allowing request');
+        return callback(null, true);
+      }
+      // Check if the origin is in the allowed list
+      if (allowedOrigins.includes(origin)) {
+        console.log(`Origin ${origin} allowed`);
+        return callback(null, true);
+      }
+      // Reject unallowed origins
+      const error = new Error(`CORS policy: Origin ${origin} not allowed`);
+      console.log(error.message);
+      return callback(error, false);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Explicitly allow methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+  })
+);
 const PORT = process.env.PORT || 5000;
 
 // MongoDB configuration
