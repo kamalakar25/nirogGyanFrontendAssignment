@@ -316,9 +316,10 @@ async function updateAnalytics() {
 
 // Middleware
 app.use(helmet());
+// Middleware
 app.use(
   cors({
-    origin: "https://niroggyanfrontendassignment.onrender.com",
+    origin: '*',
     credentials: true,
   })
 );
