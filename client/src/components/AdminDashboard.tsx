@@ -23,7 +23,7 @@ interface MonthlyStats {
   revenue: number;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL = "https://niroggyanfrontendassignment.onrender.com/api";
 
 const AdminDashboard: React.FC = () => {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
